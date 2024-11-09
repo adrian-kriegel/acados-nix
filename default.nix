@@ -23,9 +23,7 @@ pkgs.stdenv.mkDerivation {
 
   nativeBuildInputs = with pkgs; [ 
     gcc
-    cmake 
-    cargo 
-    rustc
+    cmake
   ]; 
 
   buildInputs = [
