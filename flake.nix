@@ -9,6 +9,7 @@
     overlays = {
       default = final: prev: {
         acados = prev.callPackage ./default.nix { };
+        acados_template = prev.callPackage ./acados_template.nix { };
       };
     };
   };
