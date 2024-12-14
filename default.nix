@@ -51,7 +51,7 @@ pkgs.stdenv.mkDerivation {
     # If we don't link t_renderer, ACADOS may later attempt to download it.
     # This won't work because the directory won't be writable and the binary would have to be patched anyway.
     mkdir -p $out/bin
-    ln -s $(which acados_t_renderer) $out/bin/t_renderer 
+    ln -s ${t_renderer}/bin/acados_t_renderer $out/bin/t_renderer 
 
     # Install the ACADOS python interface which isn't installed by by make install.
     mkdir $out/interfaces/acados_template -p
