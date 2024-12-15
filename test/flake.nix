@@ -45,8 +45,8 @@
             echo "acados_template: ${pkgs.acados_template}"
 
             if [ ! -f ${pkgs.acados}/bin/t_renderer ]; then
-                echo "File acados/bin/t_renderer not found!"
-                exit -1
+              echo "File acados/bin/t_renderer not found!"
+              exit -1
             fi
 
             echo ""
@@ -55,10 +55,15 @@
             echo "##########################################"
             echo ""
 
-            python -W ignore -c "import acados_template"
-            if [ $? -ne 0 ]; then
-                echo "Python interface not found!"
-                exit -1
+            python_acados_path=$(python -c "\
+from acados_template.utils import get_acados_path
+print(get_acados_path())")
+
+            echo "get_acados_path() returned \"$python_acados_path\""
+
+            if [ ! "$(realpath $python_acados_path)" = "$(realpath ${pkgs.acados})" ]; then
+              echo "get_acados_path() did not return acados store path!"
+              exit -1
             fi
 
             echo ""

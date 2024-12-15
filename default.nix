@@ -24,11 +24,20 @@ pkgs.stdenv.mkDerivation {
   nativeBuildInputs = with pkgs; [ 
     gcc
     cmake
-  ]; 
+  ];
 
-  buildInputs = [
-    t_renderer
-  ];  
+  buildInputs = [ 
+    t_renderer 
+  ];
+
+  patchPhase = ''
+    # Remove future_fstrings from python files. 
+    # future_fstrings is a python 3.9 compatibility measure which only causes problems with newer python versions.
+    find . -type f -name "*.py" -exec sed -i "s|\# -\*- coding: future_fstrings -\*-|\#|g" {} +
+
+    # Replace ACADOS_SOURCE_DIR with the correct path to get rid of the warning.
+    find . -type f -name "*.py" -exec sed -i "s|os.environ.get('ACADOS_SOURCE_DIR')|os.environ.get('ACADOS_SOURCE_DIR', '$out')|g" {} +
+  '';
 
   configurePhase = ''
     acados_src_dir=$(pwd)

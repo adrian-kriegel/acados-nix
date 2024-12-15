@@ -6,14 +6,16 @@ pkgs.python3Packages.buildPythonPackage {
 
   src = "${acados}/interfaces/acados_template";
 
-  propagatedBuildInputs = with pkgs.python3Packages; [ 
+  buildInputs = with pkgs; with pkgs.python3Packages; [
     pip
     setuptools_scm
+  ];
+
+  propagatedBuildInputs = with pkgs.python3Packages; [ 
     numpy
     scipy
     casadi
     matplotlib
-    future-fstrings
     cython
   ];
 
