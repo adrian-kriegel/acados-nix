@@ -2,7 +2,11 @@
   pkgs ? import <nixpkgs> {}
 }:
 let 
-  version = "0.3.5_stable";
+  version = "0.4.3";
+  owner = "acados";
+  repo = "acados";
+  rev = "09ffc3ac19b6e7ec5a218d2aa4f9d6f21e179c27";
+  sha256 = "sha256-tL5wz4J3pL2S9KZbEdcR9mv2EMgSzWXGseyfzYQlGLA=";
   pname = "ACADOS";
   t_renderer = import ./acados_t_renderer.nix { inherit pkgs; };
 in
@@ -11,10 +15,7 @@ pkgs.stdenv.mkDerivation {
   inherit pname;
 
   src = pkgs.fetchFromGitHub {
-    owner = "acados";
-    repo = "acados";
-    rev = "fd25099ceb0b66a80147b262db162752fdddb6dc"; 
-    sha256 = "sha256-tL5wz4J3pL2S9KZbEdcR9mv2EMgSzWXGseyfzYQlGLA=";
+    inherit owner repo rev sha256;
     # TODO: There are some modules that could be inputs (e.g. CasADi) which would avoid duplication and having to build them here.
     fetchSubmodules = true;
   };
@@ -31,6 +32,9 @@ pkgs.stdenv.mkDerivation {
   ];
 
   patchPhase = ''
+    
+    patch external/qpoases/src/QProblem.c < ${./patches/qpoases.patch}
+
     # Remove future_fstrings from python files. 
     # future_fstrings is a python 3.9 compatibility measure which only causes problems with newer python versions.
     find . -type f -name "*.py" -exec sed -i "s|\# -\*- coding: future_fstrings -\*-|\#|g" {} +
