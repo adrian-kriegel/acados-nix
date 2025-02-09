@@ -6,7 +6,7 @@ let
   owner = "acados";
   repo = "acados";
   rev = "09ffc3ac19b6e7ec5a218d2aa4f9d6f21e179c27";
-  sha256 = "sha256-tL5wz4J3pL2S9KZbEdcR9mv2EMgSzWXGseyfzYQlGLA=";
+  sha256 = "sha256-J0KyKKnkq1f353Aea+D7uNbYRm7/YOTbqBH+NZnwITA=";
   pname = "ACADOS";
   t_renderer = import ./acados_t_renderer.nix { inherit pkgs; };
 in
