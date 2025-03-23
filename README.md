@@ -8,13 +8,17 @@ Nix flake containing packages
 
 All packages are patched to work out of the box without setting ``ACADOS_SOURCE_DIR`` or ``LD_LIBRARY_PATH`` as in the original installation instructions.
 
-## Usage
+## Usage (quick setup)
 
 Quickly get a shell with all packages and a python environment: 
 
 ```bash
 nix shell github:adrian-kriegel/acados-nix#acados-dev
 ```
+
+No need to set any environment variables or perform any further steps.
+
+## Usage (flake)
 
 Example usage in a flake: 
 
